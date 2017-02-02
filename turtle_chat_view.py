@@ -1,5 +1,8 @@
 #2016-2017 PERSONAL PROJECTS: TurtleChat!
 #WRITE YOUR NAME HERE!
+import turtle
+from turtle_chat_client import Client 
+from turtle_chat_widgets import Button,TextInput
 
 #####################################################################################
 #                                   IMPORTS                                         #
@@ -66,6 +69,19 @@
 #Read the comments below for hints and directions.
 ##################################################################
 ##################################################################
+class Textbox(TextInput):
+    def draw_box(self) :
+        self.pos=(-200,-200)
+        turtle.hideturtle()
+        self.writer=turtle.clone()
+        self.writer.penup()
+        self.writer.goto(self.pos)
+        self.writer.pendown()
+        self.writer.goto(width,-200)
+        self.writer.goto(self.width,self.height)
+    
+
+
 class View:
     _MSG_LOG_LENGTH=5 #Number of messages to retain in view
     _SCREEN_WIDTH=300
@@ -76,7 +92,9 @@ class View:
         '''
         :param username: the name of this chat user
         :param partner_name: the name of the user you are chatting with
+
         '''
+        
         ###
         #Store the username and partner_name into the instance.
         ###
