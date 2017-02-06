@@ -40,35 +40,6 @@ from turtle_chat_widgets import Button,TextInput
 #   \r to your string.  Test it out at the Python shell for practice
 #####################################################################################
 #####################################################################################
-
-#####################################################################################
-#                                  SendButton                                       #
-#####################################################################################
-#Make a class called SendButton, which will be a subclass of Button.
-#Button is an abstract class with one abstract method: fun.
-#fun gets called whenever the button is clicked.  It's jobs will be to
-#
-# 1. send a message to the other chat participant - to do this,
-#    you will need to call the send method of your Client instance
-# 2. update the messages that you see on the screen
-#
-#HINT: You may want to override the __init__ method so that it takes one additional
-#      input: view.  This will be an instance of the View class you will make next
-#      That class will have methods inside of it to help
-#      you send messages and update message displays.
-#####################################################################################
-#####################################################################################
-
-
-##################################################################
-#                             View                               #
-##################################################################
-#Make a new class called View.  It does not need to have a parent
-#class mentioned explicitly.
-#
-#Read the comments below for hints and directions.
-##################################################################
-##################################################################
 class Textbox(TextInput):
     def draw_box(self) :
         self.pos=(-200,-200)
@@ -92,6 +63,37 @@ class Textbox(TextInput):
 a=TextBox()
 a.draw_box()
 a.writer.msg()
+
+#####################################################################################
+#                                  SendButton                                       #
+#####################################################################################
+#Make a class called SendButton, which will be a subclass of Button.
+#Button is an abstract class with one abstract method: fun.
+#fun gets called whenever the button is clicked.  It's jobs will be to
+#
+# 1. send a message to the other chat participant - to do this,
+#    you will need to call the send method of your Client instance
+# 2. update the messages that you see on the screen
+#
+#HINT: You may want to override the __init__ method so that it takes one additional
+#      input: view.  This will be an instance of the View class you will make next
+#      That class will have methods inside of it to help
+#      you send messages and update message displays.
+#####################################################################################
+#####################################################################################
+class SendButton(Button):
+    
+
+##################################################################
+#                             View                               #
+##################################################################
+#Make a new class called View.  It does not need to have a parent
+#class mentioned explicitly.
+#
+#Read the comments below for hints and directions.
+##################################################################
+##################################################################
+
         
 
 
