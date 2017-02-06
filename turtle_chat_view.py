@@ -77,9 +77,22 @@ class Textbox(TextInput):
         self.writer.penup()
         self.writer.goto(self.pos)
         self.writer.pendown()
-        self.writer.goto(width,-200)
+        self.writer.goto(self.width,-200)
         self.writer.goto(self.width,self.height)
-    
+        self.writer.goto(-200,self.height)
+        self.writer.goto(self.pos)
+        self.writer.penup()
+        
+    def write_msg(self):
+        self.writer.penup()
+        self.writer.goto(-180,80)
+        self.writer.clean()
+        self.writer.write(self.new_msg)
+
+a=TextBox()
+a.draw_box()
+a.writer.msg()
+        
 
 
 class View:
@@ -114,7 +127,9 @@ class View:
         #
         #at the Python shell.
         ###
-
+        
+        #self. my_client= Client()
+        
         ###
         #This list will store all of the messages.
         #You can add strings to the front of the list using
