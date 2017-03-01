@@ -57,7 +57,7 @@ class Textbox(TextInput):
     def write_msg(self):
         self.writer.penup()
         self.writer.goto(-180,80)
-        self.writer.clean()
+        self.writer.clear()
         self.writer.write(self.new_msg)
 
 a=TextBox()
@@ -82,26 +82,23 @@ a.writer.msg()
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
-    
-
+  # def __init__(self):
+   #     Button.__init__ (self)
 ##################################################################
 #                             View                               #
-##################################################################
+####### ###########################################################
 #Make a new class called View.  It does not need to have a parent
 #class mentioned explicitly.
 #
 #Read the comments below for hints and directions.
 ##################################################################
 ##################################################################
-
-        
-
-
-class View:
+ class View:
     _MSG_LOG_LENGTH=5 #Number of messages to retain in view
     _SCREEN_WIDTH=300
     _SCREEN_HEIGHT=600
     _LINE_SPACING=round(_SCREEN_HEIGHT/2/(_MSG_LOG_LENGTH+1))
+    my_client=client
 
     def __init__(self,username='Me',partner_name='Partner'):
         '''
@@ -109,7 +106,8 @@ class View:
         :param partner_name: the name of the user you are chatting with
 
         '''
-        
+        self.partner_name=partner_name
+        self.username=username
         ###
         #Store the username and partner_name into the instance.
         ###
