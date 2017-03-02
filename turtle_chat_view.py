@@ -3,7 +3,7 @@
 import turtle
 from turtle_chat_client import Client 
 from turtle_chat_widgets import Button,TextInput
-
+turtle.bgcolor("light blue")
 #####################################################################################
 #                                   IMPORTS                                         #
 #####################################################################################
@@ -40,7 +40,7 @@ from turtle_chat_widgets import Button,TextInput
 #   \r to your string.  Test it out at the Python shell for practice
 #####################################################################################
 #####################################################################################
-class Textbox(TextInput):
+class TextBox(TextInput):
     def draw_box(self) :
         self.pos=(-200,-200)
         turtle.hideturtle()
@@ -62,7 +62,7 @@ class Textbox(TextInput):
 
 a=TextBox()
 a.draw_box()
-a.writer.msg()
+a.write_msg()
 
 #####################################################################################
 #                                  SendButton                                       #
@@ -82,9 +82,33 @@ a.writer.msg()
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
-  # def __init__(self):
-   #     Button.__init__ (self)
-##################################################################
+   def __init__(self,view,my_turtle=None,shape=None,pos=(0,0)):
+        if my_turtle is None :
+            #If no turtle given, create new one
+            self.turtle=turtle.clone()
+        else:
+            self.turtle=my_turtle
+
+        self.turtle.speed(0)
+        self.turtle.hideturtle()
+        self.turtle.penup()
+        self.turtle.goto(pos)
+
+        if shape is None:
+            self.turtle.shape('square')
+            self.turtle.shapesize(2,10)
+        else:
+            turtle.addshape(shape)
+            self.turtle.shape(shape)
+        self.turtle.showturtle()
+        self.turtle.onclick(self.fun) #Link listener to button function
+        turtle.listen() #Start listener
+
+   def fun(self,x=None,y=None):
+       self.view.send_msg()
+
+
+   #################################
 #                             View                               #
 ####### ###########################################################
 #Make a new class called View.  It does not need to have a parent
@@ -93,12 +117,12 @@ class SendButton(Button):
 #Read the comments below for hints and directions.
 ##################################################################
 ##################################################################
- class View:
+class View:
     _MSG_LOG_LENGTH=5 #Number of messages to retain in view
     _SCREEN_WIDTH=300
     _SCREEN_HEIGHT=600
     _LINE_SPACING=round(_SCREEN_HEIGHT/2/(_MSG_LOG_LENGTH+1))
-    my_client=client
+    my_client=Client
 
     def __init__(self,username='Me',partner_name='Partner'):
         '''
