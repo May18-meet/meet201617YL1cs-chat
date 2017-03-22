@@ -1,5 +1,5 @@
 #2016-2017 PERSONAL PROJECTS: TurtleChat!
-#WRITE YOUR NAME HERE!
+#May
 import turtle
 from turtle_chat_client import Client 
 from turtle_chat_widgets import Button,TextInput
@@ -60,9 +60,9 @@ class TextBox(TextInput):
         self.writer.clear()
         self.writer.write(self.new_msg)
 
-a=TextBox()
-a.draw_box()
-a.write_msg()
+#a=TextBox()
+#a.draw_box()
+#a.write_msg()
 
 #####################################################################################
 #                                  SendButton                                       #
@@ -103,6 +103,7 @@ class SendButton(Button):
         self.turtle.showturtle()
         self.turtle.onclick(self.fun) #Link listener to button function
         turtle.listen() #Start listener
+        self.view=view
 
    def fun(self,x=None,y=None):
        self.view.send_msg()
@@ -122,7 +123,7 @@ class View:
     _SCREEN_WIDTH=300
     _SCREEN_HEIGHT=600
     _LINE_SPACING=round(_SCREEN_HEIGHT/2/(_MSG_LOG_LENGTH+1))
-    my_client=Client
+    
 
     def __init__(self,username='Me',partner_name='Partner'):
         '''
@@ -132,6 +133,7 @@ class View:
         '''
         self.partner_name=partner_name
         self.username=username
+        self.my_client=Client()
         ###
         #Store the username and partner_name into the instance.
         ###
@@ -152,7 +154,6 @@ class View:
         #at the Python shell.
         ###
         
-        #self. my_client= Client()
         
         ###
         #This list will store all of the messages.
@@ -162,13 +163,16 @@ class View:
         #   self.msg_queue.append(a_msg_string)
         self.msg_queue=[]
         ###
-
+        self.turtle=turtle.clone()
         ###
         #Create one turtle object for each message to display.
         #You can use the clear() and write() methods to erase
         #and write messages for each
         ###
-
+        self.Text=TextBox()
+        self.Send=SendButton(self)
+        
+        
         ###
         #Create a TextBox instance and a SendButton instance and
         #Store them inside of this instance
@@ -189,8 +193,13 @@ class View:
         It should call self.display_msg() to cause the message
         display to be updated.
         '''
-        pass
-
+        
+        self.my_client.send(self.Text.new_msg)
+        a_msg_string=self.Text.new_msg
+        self.msg_queue.insert(0,a_msg_string)
+        self.Text.clear_msg()
+        self.display_msg()
+        
     def get_msg(self):
         return self.textbox.get_msg()
 
@@ -218,19 +227,26 @@ class View:
         :param msg: a string containing the message received
                     - this should be displayed on the screen
         '''
+        
         print(msg) #Debug - print message
+        
         show_this_msg=self.partner_name+' says:\r'+ msg
         #Add the message to the queue either using insert (to put at the beginning)
         #or append (to put at the end).
         #
         #Then, call the display_msg method to update the display
-
+        self.msg_queue.insert(0,msg)
+        self.display_msg()
     def display_msg(self):
         '''
         This method should update the messages displayed in the screen.
         You can get the messages you want from self.msg_queue
         '''
-        pass
+        self.turtle.penup()
+        self.turtle.goto(-180,-100)
+        self.turtle.clear()
+        self.turtle.write(self.msg_queue[0])
+        
 
     def get_client(self):
         return self.my_client
